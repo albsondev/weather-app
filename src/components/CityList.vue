@@ -21,6 +21,11 @@
 <script lang="ts">
 import Vue from "vue";
 import CityWeather from "./CityWeather.vue";
+import { Route } from "vue-router";
+
+interface City {
+  name: string;
+}
 
 export default Vue.extend({
   name: "CityList",
@@ -33,7 +38,7 @@ export default Vue.extend({
         { name: "Tokyo" },
         { name: "Paris" },
         { name: "Berlin" },
-      ],
+      ] as City[],
       newCity: "",
     };
   },
@@ -49,10 +54,10 @@ export default Vue.extend({
         this.newCity = "";
       }
     },
-    removeCity(cityName) {
+    removeCity(cityName: string) {
       this.cities = this.cities.filter((city) => city.name !== cityName);
     },
-    showDetails(cityName) {
+    showDetails(cityName: string) {
       this.$router.push({ name: "details", params: { city: cityName } });
     },
   },

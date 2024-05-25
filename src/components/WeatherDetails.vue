@@ -10,12 +10,33 @@ import Vue from "vue";
 import axios from "axios";
 import VueApexCharts from "vue-apexcharts";
 
+interface WeatherItem {
+  date: string;
+  temp: number;
+}
+
+interface Series {
+  name: string;
+  data: number[];
+}
+
+interface XAxis {
+  categories: string[];
+}
+
+interface ChartOptions {
+  chart: {
+    id: string;
+  };
+  xaxis: XAxis;
+}
+
 export default Vue.extend({
   name: "WeatherDetails",
   components: {
     apexchart: VueApexCharts,
   },
-  data() {
+  data(): { series: Series[]; chartOptions: ChartOptions } {
     return {
       series: [],
       chartOptions: {
@@ -34,23 +55,27 @@ export default Vue.extend({
   methods: {
     async fetchWeatherHistory() {
       const city = this.$route.params.city;
-      const API_KEY = "YOUR_API_KEY";
+      const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
       );
-      const data = response.data.list.slice(0, 5).map((item) => ({
-        date: item.dt_txt,
-        temp: item.main.temp,
-      }));
+      const data: WeatherItem[] = response.data.list
+        .slice(0, 5)
+        .map((item: any) => ({
+          date: item.dt_txt,
+          temp: item.main.temp,
+        }));
 
       this.series = [
         {
           name: "Temperature",
-          data: data.map((item) => item.temp),
+          data: data.map((item: WeatherItem) => item.temp),
         },
       ];
 
-      this.chartOptions.xaxis.categories = data.map((item) => item.date);
+      this.chartOptions.xaxis.categories = data.map(
+        (item: WeatherItem) => item.date
+      );
     },
   },
 });

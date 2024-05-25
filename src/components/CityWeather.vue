@@ -1,9 +1,13 @@
 <template>
   <v-card>
-    <v-card-title>{{ city.name }}</v-card-title>
+    <v-card-title>
+      {{ city.name }}
+    </v-card-title>
     <v-card-text>
-      <div>Temperature: {{ weather.main.temp }} °C</div>
-      <div>Humidity: {{ weather.main.humidity }}%</div>
+      <div>
+        Temperature: {{ weather?.main?.temp || "Not available yet" }} °C
+      </div>
+      <div>Humidity: {{ weather?.main?.humidity || "Not available yet" }}%</div>
     </v-card-text>
     <v-card-actions>
       <v-btn @click="$emit('remove', city.name)">Remove</v-btn>
@@ -23,7 +27,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      weather: null,
+      weather: {
+        main: {},
+      },
     };
   },
   created() {
@@ -31,7 +37,7 @@ export default Vue.extend({
   },
   methods: {
     async fetchWeather() {
-      const API_KEY = "YOUR_API_KEY";
+      const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city.name}&appid=${API_KEY}&units=metric`;
       const response = await axios.get(url);
       this.weather = response.data;

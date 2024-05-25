@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: "/details/:city",
-    name: "details",
+    name: "WeatherDetails",
     component: WeatherDetails,
   },
 ];
