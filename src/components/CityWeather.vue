@@ -60,7 +60,6 @@ export default Vue.extend({
       try {
         const response = await axios.get(url);
         this.weather = response.data;
-        console.log(this.weather);
       } catch (error) {
         console.error("Error fetching weather data", error);
       }

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Aqui é a tela de detalhes:</h1>
     <v-btn @click="$router.back()">Back</v-btn>
     <apexchart type="line" :options="chartOptions" :series="series"></apexchart>
   </div>

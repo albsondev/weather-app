@@ -58,7 +58,8 @@ export default Vue.extend({
       this.cities = this.cities.filter((city) => city.name !== cityName);
     },
     showDetails(cityName: string) {
-      this.$router.push({ name: "details", params: { city: cityName } });
+      console.log(`Navegando para detalhes da cidade: ${cityName}`);
+      this.$router.push(`/details/${cityName}`);
     },
   },
 });
