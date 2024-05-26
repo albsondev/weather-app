@@ -33,11 +33,11 @@ export default Vue.extend({
   data() {
     return {
       cities: [
-        { name: "London" },
-        { name: "New York" },
-        { name: "Tokyo" },
+        { name: "Maringa" },
+        { name: "Recife" },
+        { name: "Manaus" },
+        { name: "Caruaru" },
         { name: "Paris" },
-        { name: "Berlin" },
       ] as City[],
       newCity: "",
     };

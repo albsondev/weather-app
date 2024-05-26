@@ -57,7 +57,7 @@ export default Vue.extend({
       const city = this.$route.params.city;
       const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=pt_br`
       );
       const data: WeatherItem[] = response.data.list
         .slice(0, 5)
