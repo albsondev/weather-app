@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import VueApexCharts from "vue-apexcharts";
 
 interface WeatherItem {
@@ -32,13 +32,26 @@ interface ChartOptions {
   xaxis: XAxis;
 }
 
+interface WeatherResponse {
+  coord: {
+    lat: number;
+    lon: number;
+  };
+}
+
+interface ForecastItem {
+  dt: number;
+  main: {
+    temp: number;
+  };
+}
+
 export default Vue.extend({
   name: "WeatherDetails",
   components: {
     apexchart: VueApexCharts
   },
   data(): { series: Series[]; chartOptions: ChartOptions } {
-    console.log('entrou aqui');
     return {
       series: [],
       chartOptions: {
@@ -56,29 +69,47 @@ export default Vue.extend({
   },
   methods: {
     async fetchWeatherHistory() {
-      console.log('entrou aqui');
-      const city = this.$route.params.city;
-      const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=pt_br`
-      );
-      const data: WeatherItem[] = response.data.list
-        .slice(0, 5)
-        .map((item: any) => ({
-          date: item.dt_txt,
-          temp: item.main.temp
-        }));
+      try {
+        const city = this.$route.params.name;
+        const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
 
-      this.series = [
-        {
-          name: "Temperature",
-          data: data.map((item: WeatherItem) => item.temp)
-        }
-      ];
+        // Obter latitude e longitude da cidade
+        const locationResponse: AxiosResponse<WeatherResponse> = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=pt_br`
+        );
+        const { coord } = locationResponse.data;
 
-      this.chartOptions.xaxis.categories = data.map(
-        (item: WeatherItem) => item.date
-      );
+        // Obter previsão para os próximos 5 dias em intervalos de 3 horas
+        const forecastResponse: AxiosResponse<{ list: ForecastItem[] }> = await axios.get(
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API_KEY}&units=metric&lang=pt_br`
+        );
+
+        // Processar dados para obter temperaturas médias diárias
+        const forecastList: ForecastItem[] = forecastResponse.data.list;
+        const data: WeatherItem[] = [];
+        const dates: Set<string> = new Set();
+
+        forecastList.forEach((item: ForecastItem) => {
+          const date = new Date(item.dt * 1000).toLocaleDateString();
+          if (!dates.has(date)) {
+            data.push({ date, temp: item.main.temp });
+            dates.add(date);
+          }
+        });
+
+        this.series = [
+          {
+            name: "Temperature",
+            data: data.map((item: WeatherItem) => item.temp)
+          }
+        ];
+
+        this.chartOptions.xaxis.categories = data.map(
+          (item: WeatherItem) => item.date
+        );
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
     }
   }
 });

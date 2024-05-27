@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import CityDetailView from '@/views/CityDetailView.vue';
 import Home from "@/views/Home.vue";
-import WeatherDetails from "@/components/WeatherDetails.vue";
 
 Vue.use(Router);
 
@@ -18,8 +15,7 @@ export default new Router({
     {
       path: '/city/:name',
       name: 'WeatherDetails',
-      component: WeatherDetails,
-      props: true
+      component: () => import('@/components/WeatherDetails.vue')
     }
   ]
 });
