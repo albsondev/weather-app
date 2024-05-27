@@ -42,12 +42,12 @@ export default Vue.extend({
   props: {
     city: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      weather: null as Weather | null,
+      weather: null as Weather | null
     };
   },
   created() {
@@ -63,7 +63,7 @@ export default Vue.extend({
       } catch (error) {
         console.error("Error fetching weather data", error);
       }
-    },
-  },
+    }
+  }
 });
 </script>

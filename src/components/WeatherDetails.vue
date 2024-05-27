@@ -2,7 +2,7 @@
   <div>
     <h1>Aqui é a tela de detalhes:</h1>
     <v-btn @click="$router.back()">Back</v-btn>
-    <apexchart type="line" :options="chartOptions" :series="series"></apexchart>
+    <apexchart :options="chartOptions" :series="series" type="line"></apexchart>
   </div>
 </template>
 
@@ -35,19 +35,20 @@ interface ChartOptions {
 export default Vue.extend({
   name: "WeatherDetails",
   components: {
-    apexchart: VueApexCharts,
+    apexchart: VueApexCharts
   },
   data(): { series: Series[]; chartOptions: ChartOptions } {
+    console.log('entrou aqui');
     return {
       series: [],
       chartOptions: {
         chart: {
-          id: "temp-chart",
+          id: "temp-chart"
         },
         xaxis: {
-          categories: [],
-        },
-      },
+          categories: []
+        }
+      }
     };
   },
   async created() {
@@ -55,6 +56,7 @@ export default Vue.extend({
   },
   methods: {
     async fetchWeatherHistory() {
+      console.log('entrou aqui');
       const city = this.$route.params.city;
       const API_KEY = "9be05ca505af6cc5e1c637e92b89d0fe";
       const response = await axios.get(
@@ -64,20 +66,20 @@ export default Vue.extend({
         .slice(0, 5)
         .map((item: any) => ({
           date: item.dt_txt,
-          temp: item.main.temp,
+          temp: item.main.temp
         }));
 
       this.series = [
         {
           name: "Temperature",
-          data: data.map((item: WeatherItem) => item.temp),
-        },
+          data: data.map((item: WeatherItem) => item.temp)
+        }
       ];
 
       this.chartOptions.xaxis.categories = data.map(
         (item: WeatherItem) => item.date
       );
-    },
-  },
+    }
+  }
 });
 </script>

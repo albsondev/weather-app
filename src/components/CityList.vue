@@ -11,8 +11,8 @@
         v-for="city in cities"
         :key="city.name"
         :city="city"
-        @remove="removeCity"
         @details="showDetails"
+        @remove="removeCity"
       />
     </v-list>
   </div>
@@ -21,7 +21,6 @@
 <script lang="ts">
 import Vue from "vue";
 import CityWeather from "./CityWeather.vue";
-import { Route } from "vue-router";
 
 interface City {
   name: string;
@@ -37,9 +36,9 @@ export default Vue.extend({
         { name: "Recife" },
         { name: "Manaus" },
         { name: "Caruaru" },
-        { name: "Paris" },
+        { name: "Paris" }
       ] as City[],
-      newCity: "",
+      newCity: ""
     };
   },
   methods: {
@@ -59,8 +58,8 @@ export default Vue.extend({
     },
     showDetails(cityName: string) {
       console.log(`Navegando para detalhes da cidade: ${cityName}`);
-      this.$router.push(`/details/${cityName}`);
-    },
-  },
+      this.$router.push(`/city/${cityName}`);  // Alterado de `/details/${cityName}` para `/city/${cityName}`
+    }
+  }
 });
 </script>
