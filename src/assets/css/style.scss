@@ -4,6 +4,36 @@
     .cards-list {
         background: #fff !important;
 
+        .chips-subtitle {
+            font-size: 0.55rem;
+            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+
+            &.ceu-limpo {
+                background: #2196f3d4 !important;
+                color: #FFF !important;
+            }
+
+            &.nublado {
+                background: #2b4f74 !important;
+                color: #FFF !important;
+            }
+
+            &.nevoa {
+                background: #e1e1e1 !important;
+                color: #5e5e5e !important;
+            }
+
+            &.nuvens-dispersas {
+                background: #269fb5 !important;
+                color: #5e5e5e !important;
+            }
+
+            &.algumas-nuvens {
+                background: #8ebbc4 !important;
+                color: #233747 !important;
+            }
+        }
+
         .card-list-title{
             background: #f8f8f8;
             display: flex;
@@ -71,7 +101,7 @@
                 background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/garoa.jpg") !important;
                 background-size: cover !important;
                 background-repeat: no-repeat;
-                background-position-y: 25% !important;
+                background-position-y: 20% !important;
             }
 
             .card-list-name-city {

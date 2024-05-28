@@ -5,12 +5,9 @@
         {{ city.name }}
       </div>
       <div class="info-weather">
-        <div>
-          <v-icon>mdi-weather-cloudy</v-icon>
-        </div>
-        <div>
+        <v-chip :class="'chips-subtitle ' + weatherClass">
           {{ weather?.weather[0]?.description || "Not available yet" }}
-        </div>
+        </v-chip>
       </div>
     </v-card-title>
     <v-divider :thickness="4"></v-divider>

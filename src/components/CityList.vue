@@ -7,7 +7,10 @@
           label="City"
           @keyup.enter="addCity"
         ></v-text-field>
-        <v-btn @click="addCity">Add</v-btn>
+        <v-btn @click="addCity">Add New City</v-btn>
+      </v-col>
+      <v-col cols="12" sm="12" md="12">
+        <v-divider></v-divider>
       </v-col>
     </v-row>
     <v-row>
