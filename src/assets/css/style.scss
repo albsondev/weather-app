@@ -1,31 +1,44 @@
+$v-main-background: #f0f0f0;
+$card-background: #fff;
+$font-color-light: #fff;
+$font-color-dark: #5e5e5e;
+
+@mixin background-image($image, $position) {
+    background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)),
+    url("@/assets/images/#{$image}") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: #{$position} !important;
+}
+
 .v-main {
-    background: #f0f0f0 !important;
+    background: $v-main-background !important;
 
     .cards-list {
-        background: #fff !important;
+        background: $card-background !important;
 
         .chips-subtitle {
             font-size: 0.55rem;
-            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
 
             &.ceu-limpo {
                 background: #2196f3d4 !important;
-                color: #FFF !important;
+                color: $font-color-light !important;
             }
 
             &.nublado {
                 background: #2b4f74 !important;
-                color: #FFF !important;
+                color: $font-color-light !important;
             }
 
             &.nevoa {
                 background: #e1e1e1 !important;
-                color: #5e5e5e !important;
+                color: $font-color-dark !important;
             }
 
             &.nuvens-dispersas {
                 background: #269fb5 !important;
-                color: #5e5e5e !important;
+                color: $font-color-dark !important;
             }
 
             &.algumas-nuvens {
@@ -34,7 +47,7 @@
             }
         }
 
-        .card-list-title{
+        .card-list-title {
             background: #f8f8f8;
             display: flex;
             flex-direction: column;
@@ -42,78 +55,52 @@
             padding: 5px 20px !important;
 
             &.ceu-limpo {
-                background: linear-gradient(#e8e8e800, rgba(255,255,255,.5)), url("@/assets/images/ceu-limpo.png");
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position: left top !important;
+                @include background-image("ceu-limpo.png", left top);
             }
 
             &.algumas-nuvens {
-                background: linear-gradient(#e8e8e800, rgba(255,255,255,.5)), url("@/assets/images/nuvens.jpg");
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position: bottom !important;
+                @include background-image("nuvens.jpg", bottom);
             }
 
             &.chuva-moderada {
-                background: linear-gradient(#1a386a, rgb(255 255 255 / 0%)), url("@/assets/images/chuvas.png");
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 20% !important;
+                @include background-image("chuvas.png", 20%);
             }
 
             &.chuva-leve {
-                background: linear-gradient(#96add3, rgb(255 255 255 / 0%)), url("@/assets/images/chuva-leve.png") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 50% !important;
+                @include background-image("chuva-leve.png", 50%);
             }
 
             &.nublado {
-                background: linear-gradient(#96add3, rgb(255 255 255 / 0%)), url("@/assets/images/nublado.png") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 45% !important;
+                @include background-image("nublado.png", 45%);
             }
 
             &.nevoa {
-                background: linear-gradient(#ffffff, #ffffff5c), url("@/assets/images/nevoa.jpeg") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position: top !important;
+                @include background-image("nevoa.jpeg", top);
             }
 
             &.nuvens-dispersas {
-                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/nuvens-dispersas.png") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 25% !important;
+                @include background-image("nuvens-dispersas.png", 25%);
             }
 
             &.neblina {
-                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/neblina.jpeg") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 55% !important;
+                @include background-image("neblina.jpeg", 55%);
             }
 
             &.garoa-de-leve-intensidade {
-                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/garoa.jpg") !important;
-                background-size: cover !important;
-                background-repeat: no-repeat;
-                background-position-y: 20% !important;
+                @include background-image("garoa.jpg", 20%);
             }
 
             .card-list-name-city {
                 font-family: 'Tahoma', sans-serif;
             }
+
             .info-weather {
                 display: flex;
                 font-size: 0.6rem;
                 color: #8e8e8e !important;
                 text-transform: uppercase;
 
-                div *{
+                div * {
                     margin: 0 0.10rem;
                     color: #c0c0c0 !important;
                 }
@@ -129,11 +116,7 @@
             align-content: center !important;
             align-self: center !important;
             font-size: 0.75rem;
-            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
-
-            .icon-cards-list {
-
-            }
+            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
         }
 
         .temp-main {

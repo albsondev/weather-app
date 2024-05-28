@@ -1,51 +1,23 @@
 <template>
   <v-card class="cards-list">
     <v-card-title class="card-list-title" :class="weatherClass">
-      <div class="card-list-name-city">
-        {{ city.name }}
-      </div>
+      <div class="card-list-name-city">{{ city.name }}</div>
       <div class="info-weather">
         <v-chip :class="'chips-subtitle ' + weatherClass">
-          {{ weather?.weather[0]?.description || "Not available yet" }}
+          {{ weatherDescription }}
         </v-chip>
       </div>
     </v-card-title>
     <v-divider :thickness="4"></v-divider>
     <v-card-subtitle class="card-list-subtitle">
-      <div class="icon-cards-list">
-        <div class="info-text-cards">
-          <v-icon>mdi-thermometer</v-icon>
-          <span>min:</span>
-        </div>
-        <div class="text-center font-weight-bold">
-          {{ weather?.main?.temp_min || "Not available yet" }} °C
-        </div>
-      </div>
+      <WeatherInfo icon="mdi-thermometer" label="min:" :value="minTemp" />
       <v-divider vertical></v-divider>
-      <div class="icon-cards-list">
-        <div class="info-text-cards">
-          <v-icon>mdi-thermometer</v-icon>
-          <span>max:</span>
-        </div>
-        <div class="text-center font-weight-bold">
-          {{ weather?.main?.temp_max || "Not available yet" }} °C
-        </div>
-      </div>
+      <WeatherInfo icon="mdi-thermometer" label="max:" :value="maxTemp" />
       <v-divider vertical></v-divider>
-      <div class="icon-cards-list">
-        <div class="info-text-cards">
-          <v-icon>mdi-water-percent</v-icon>
-          <span>Humidity</span>
-        </div>
-        <div class="text-center font-weight-bold">
-          {{ weather?.main?.humidity || "Not available yet" }} %
-        </div>
-      </div>
+      <WeatherInfo icon="mdi-water-percent" label="Humidity" :value="humidity" />
     </v-card-subtitle>
     <v-divider></v-divider>
-    <v-card-text class="temp-main text-center">
-      {{ weather?.main?.temp?.toFixed(0) || "Not available yet" }} °C
-    </v-card-text>
+    <v-card-text class="temp-main text-center">{{ mainTemp }} °C</v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn @click="$emit('remove', city.name)">Remove</v-btn>
@@ -57,6 +29,7 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import WeatherInfo from "@/components/WeatherInfo.vue"; // Assumindo que você crie este componente.
 
 interface Weather {
   main: {
@@ -73,25 +46,37 @@ interface Weather {
 
 export default Vue.extend({
   name: "CityWeather",
+  components: { WeatherInfo },
   props: {
     city: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      weather: null as Weather | null
+      weather: null as Weather | null,
     };
   },
   computed: {
     weatherClass(): string {
-      const description = this.weather?.weather[0]?.description;
-      if (!description) {
-        return "";
-      }
-      return this.normalizeClass(description);
-    }
+      return this.normalizeClass(this.weatherDescription);
+    },
+    weatherDescription(): string {
+      return this.weather?.weather[0]?.description || "Not available yet";
+    },
+    minTemp(): string {
+      return this.weather?.main?.temp_min?.toString() || "Not available yet";
+    },
+    maxTemp(): string {
+      return this.weather?.main?.temp_max?.toString() || "Not available yet";
+    },
+    humidity(): string {
+      return this.weather?.main?.humidity?.toString() || "Not available yet";
+    },
+    mainTemp(): string {
+      return this.weather?.main?.temp?.toFixed(0) || "Not available yet";
+    },
   },
   methods: {
     async fetchWeather() {
@@ -100,21 +85,20 @@ export default Vue.extend({
       try {
         const response = await axios.get(url);
         this.weather = response.data;
-        console.log("Weather data", this.weather);
       } catch (error) {
         console.error("Error fetching weather data", error);
       }
     },
     normalizeClass(description: string): string {
       return description
-        .normalize('NFD') // Normalize to decomposed form
-        .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-        .toLowerCase(); // Convert to lowercase
-    }
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    },
   },
   created() {
     this.fetchWeather();
-  }
+  },
 });
 </script>
