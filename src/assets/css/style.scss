@@ -1,0 +1,46 @@
+.v-main {
+    background: #f0f0f0 !important;
+
+    .cards-list {
+        background: #fff !important;
+
+        .card-list-title{
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start !important;
+            padding: 5px 20px !important;
+
+            .card-list-name-city {
+                font-family: 'Tahoma', sans-serif;
+            }
+            .info-weather {
+                display: flex;
+                font-size: 0.6rem;
+                color: #8e8e8e !important;
+                text-transform: uppercase;
+
+                div *{
+                    margin: 0 0.10rem;
+                    color: #c0c0c0 !important;
+                }
+            }
+        }
+
+        .card-list-subtitle {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center !important;
+            align-content: center !important;
+            align-self: center !important;
+            font-size: 0.75rem;
+            filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+
+            .icon-cards-list {
+
+            }
+        }
+    }
+}

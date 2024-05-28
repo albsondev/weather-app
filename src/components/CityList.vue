@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <v-text-field
-      v-model="newCity"
-      label="Add City"
-      @keyup.enter="addCity"
-    ></v-text-field>
-    <v-btn @click="addCity">Add</v-btn>
-    <v-list>
-      <CityWeather
+  <v-container>
+    <v-row>
+      <v-col cols="12" sm="6" md="4">
+        <v-text-field
+          v-model="newCity"
+          label="City"
+          @keyup.enter="addCity"
+        ></v-text-field>
+        <v-btn @click="addCity">Add</v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
         v-for="city in cities"
         :key="city.name"
-        :city="city"
-        @details="showDetails"
-        @remove="removeCity"
-      />
-    </v-list>
-  </div>
+      >
+        <CityWeather
+          :city="city"
+          @remove="removeCity"
+          @details="showDetails"
+        ></CityWeather>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -63,3 +73,4 @@ export default Vue.extend({
   }
 });
 </script>
+

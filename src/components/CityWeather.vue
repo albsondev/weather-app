@@ -1,20 +1,55 @@
 <template>
-  <v-card>
-    <v-card-title>
-      {{ city.name }}
+  <v-card class="cards-list">
+    <v-card-title class="card-list-title">
+      <div class="card-list-name-city">
+        {{ city.name }}
+      </div>
+      <div class="info-weather">
+        <div>
+          <v-icon>mdi-weather-cloudy</v-icon>
+        </div>
+        <div>
+          {{ weather?.weather[0]?.description || "Not available yet" }}
+        </div>
+      </div>
     </v-card-title>
+    <v-divider :thickness="4"></v-divider>
+    <v-card-subtitle class="card-list-subtitle">
+      <div class="icon-cards-list">
+        <div class="info-text-cards">
+          <v-icon>mdi-thermometer</v-icon>
+          <span>tempera min:</span>
+        </div>
+        <div class="text-center font-weight-bold">
+          {{ weather?.main?.temp_min || "Not available yet" }} °C
+        </div>
+      </div>
+      <v-divider vertical></v-divider>
+      <div class="icon-cards-list">
+        <div class="info-text-cards">
+          <v-icon>mdi-thermometer</v-icon>
+          <span>tempera max:</span>
+        </div>
+        <div class="text-center font-weight-bold">
+          {{ weather?.main?.temp_max || "Not available yet" }} °C
+        </div>
+      </div>
+      <v-divider vertical></v-divider>
+      <div class="icon-cards-list">
+        <div class="info-text-cards">
+          <v-icon>mdi-water-percent</v-icon>
+          <span>Humidity</span>
+        </div>
+        <div class="text-center font-weight-bold">
+          {{ weather?.main?.humidity || "Not available yet" }} %
+        </div>
+      </div>
+    </v-card-subtitle>
+    <v-divider></v-divider>
     <v-card-text>
-      <div>
-        Temperature: {{ weather?.main?.temp || "Not available yet" }} °C
-      </div>
-      <div>
-        Humidity: {{ weather?.main?.humidity || "Not available yet" }} %
-      </div>
-      <div>
-        Description:
-        {{ weather?.weather[0]?.description || "Not available yet" }}
-      </div>
+        {{ weather?.main?.temp || "Not available yet" }} °C
     </v-card-text>
+    <v-divider></v-divider>
     <v-card-actions>
       <v-btn @click="$emit('remove', city.name)">Remove</v-btn>
       <v-btn @click="$emit('details', city.name)">Details</v-btn>
@@ -60,6 +95,7 @@ export default Vue.extend({
       try {
         const response = await axios.get(url);
         this.weather = response.data;
+        console.log("Weather data", this.weather);
       } catch (error) {
         console.error("Error fetching weather data", error);
       }
