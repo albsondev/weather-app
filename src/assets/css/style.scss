@@ -1,5 +1,5 @@
 $v-main-background: #f0f0f0;
-$card-background: #fff;
+$card-background: rgb(229 244 255 / 83%);
 $font-color-light: #fff;
 $font-color-dark: #5e5e5e;
 
@@ -17,9 +17,13 @@ $font-color-dark: #5e5e5e;
     .cards-list {
         background: $card-background !important;
 
+        & .card-list-subtitle {
+            background: #e8f6ff !important;
+        }
+
+
         .chips-subtitle {
             font-size: 0.55rem;
-            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
 
             &.ceu-limpo {
                 background: #2196f3d4 !important;
@@ -53,6 +57,11 @@ $font-color-dark: #5e5e5e;
             flex-direction: column;
             align-items: flex-start !important;
             padding: 5px 20px !important;
+
+            & .card-list-name-city {
+                font-size: 1.5rem;
+                font-family: "Webdings", sans-serif;
+            }
 
             &.ceu-limpo {
                 @include background-image("ceu-limpo.png", left top);
@@ -116,13 +125,15 @@ $font-color-dark: #5e5e5e;
             align-content: center !important;
             align-self: center !important;
             font-size: 0.75rem;
-            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
         }
 
         .temp-main {
-            font-size: 2.25rem;
+            font-size: 3rem;
             font-family: "Segoe UI Historic", sans-serif;
             color: #7e7e7e;
+            padding: 1.5rem 0.5rem;
+            background: linear-gradient(45deg, #ededed 50%, #dddddd 50%) !important;
+            text-shadow: 1px 1px 2px #717171, 0 0 1em #bababa, 0 0 0.2em #f1f1f1;
         }
     }
 }

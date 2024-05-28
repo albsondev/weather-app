@@ -1,5 +1,5 @@
 <template>
-  <v-card class="cards-list">
+  <v-card :class="'cards-list ' + weatherClass">
     <v-card-title class="card-list-title" :class="weatherClass">
       <div class="card-list-name-city">{{ city.name }}</div>
       <div class="info-weather">
