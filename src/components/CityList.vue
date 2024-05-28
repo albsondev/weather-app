@@ -58,7 +58,7 @@ export default Vue.extend({
     },
     showDetails(cityName: string) {
       console.log(`Navegando para detalhes da cidade: ${cityName}`);
-      this.$router.push(`/city/${cityName}`);  // Alterado de `/details/${cityName}` para `/city/${cityName}`
+      this.$router.push(`/city/${cityName}`);
     }
   }
 });

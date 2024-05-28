@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>Aqui é a tela de detalhes:</h1>
-    <v-btn @click="$router.back()">Back</v-btn>
+    <v-alert title="Alert title" type="info">
+    <v-btn variant="outlined" @click="$router.back()">Back</v-btn>
+    </v-alert>
+    
     <apexchart :options="chartOptions" :series="series" type="line"></apexchart>
   </div>
 </template>
