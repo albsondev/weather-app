@@ -11,6 +11,69 @@
             align-items: flex-start !important;
             padding: 5px 20px !important;
 
+            &.ceu-limpo {
+                background: linear-gradient(#e8e8e800, rgba(255,255,255,.5)), url("@/assets/images/ceu-limpo.png");
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position: left top !important;
+            }
+
+            &.algumas-nuvens {
+                background: linear-gradient(#e8e8e800, rgba(255,255,255,.5)), url("@/assets/images/nuvens.jpg");
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position: bottom !important;
+            }
+
+            &.chuva-moderada {
+                background: linear-gradient(#1a386a, rgb(255 255 255 / 0%)), url("@/assets/images/chuvas.png");
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 20% !important;
+            }
+
+            &.chuva-leve {
+                background: linear-gradient(#96add3, rgb(255 255 255 / 0%)), url("@/assets/images/chuva-leve.png") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 50% !important;
+            }
+
+            &.nublado {
+                background: linear-gradient(#96add3, rgb(255 255 255 / 0%)), url("@/assets/images/nublado.png") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 45% !important;
+            }
+
+            &.nevoa {
+                background: linear-gradient(#ffffff, #ffffff5c), url("@/assets/images/nevoa.jpeg") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position: top !important;
+            }
+
+            &.nuvens-dispersas {
+                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/nuvens-dispersas.png") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 25% !important;
+            }
+
+            &.neblina {
+                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/neblina.jpeg") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 55% !important;
+            }
+
+            &.garoa-de-leve-intensidade {
+                background: linear-gradient(#b9d3ff, #ffffff5e), url("@/assets/images/garoa.jpg") !important;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position-y: 25% !important;
+            }
+
             .card-list-name-city {
                 font-family: 'Tahoma', sans-serif;
             }
@@ -41,6 +104,12 @@
             .icon-cards-list {
 
             }
+        }
+
+        .temp-main {
+            font-size: 2.25rem;
+            font-family: "Segoe UI Historic", sans-serif;
+            color: #7e7e7e;
         }
     }
 }

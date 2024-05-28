@@ -1,6 +1,6 @@
 <template>
   <v-card class="cards-list">
-    <v-card-title class="card-list-title">
+    <v-card-title class="card-list-title" :class="weatherClass">
       <div class="card-list-name-city">
         {{ city.name }}
       </div>
@@ -18,7 +18,7 @@
       <div class="icon-cards-list">
         <div class="info-text-cards">
           <v-icon>mdi-thermometer</v-icon>
-          <span>tempera min:</span>
+          <span>min:</span>
         </div>
         <div class="text-center font-weight-bold">
           {{ weather?.main?.temp_min || "Not available yet" }} °C
@@ -28,7 +28,7 @@
       <div class="icon-cards-list">
         <div class="info-text-cards">
           <v-icon>mdi-thermometer</v-icon>
-          <span>tempera max:</span>
+          <span>max:</span>
         </div>
         <div class="text-center font-weight-bold">
           {{ weather?.main?.temp_max || "Not available yet" }} °C
@@ -46,8 +46,8 @@
       </div>
     </v-card-subtitle>
     <v-divider></v-divider>
-    <v-card-text>
-        {{ weather?.main?.temp || "Not available yet" }} °C
+    <v-card-text class="temp-main text-center">
+      {{ weather?.main?.temp?.toFixed(0) || "Not available yet" }} °C
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
@@ -64,6 +64,8 @@ import axios from "axios";
 interface Weather {
   main: {
     temp?: number;
+    temp_min?: number;
+    temp_max?: number;
     humidity?: number;
   };
   weather: {
@@ -85,8 +87,14 @@ export default Vue.extend({
       weather: null as Weather | null
     };
   },
-  created() {
-    this.fetchWeather();
+  computed: {
+    weatherClass(): string {
+      const description = this.weather?.weather[0]?.description;
+      if (!description) {
+        return "";
+      }
+      return this.normalizeClass(description);
+    }
   },
   methods: {
     async fetchWeather() {
@@ -99,7 +107,17 @@ export default Vue.extend({
       } catch (error) {
         console.error("Error fetching weather data", error);
       }
+    },
+    normalizeClass(description: string): string {
+      return description
+        .normalize('NFD') // Normalize to decomposed form
+        .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .toLowerCase(); // Convert to lowercase
     }
+  },
+  created() {
+    this.fetchWeather();
   }
 });
 </script>
