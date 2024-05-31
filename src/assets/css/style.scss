@@ -4,16 +4,31 @@ $font-color-light: #fff;
 $font-color-dark: #5e5e5e;
 
 @mixin background-image($image, $position) {
-  background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)),
-  url("@/assets/images/#{$image}");
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: $position;
+  background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)) url("@/assets/images/#{$image}") no-repeat $position;
 }
 
 @mixin chip-styles($bg-color, $font-color) {
   background: $bg-color;
   color: $font-color;
+}
+
+main.v-main .container{
+  margin-top: -1.5em !important
+}
+
+header.toolbar {
+  padding: 0 1.5em !important;
+  background-color: #1976d2 !important;
+  color: #FFF !important;
+
+  button, a {
+    color: #FFF !important;
+  }
+}
+
+.v-toolbar__content {
+  padding: 0 !important;
 }
 
 .v-main {
