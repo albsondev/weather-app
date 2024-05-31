@@ -1,11 +1,24 @@
-$v-main-background: #f0f0f0;
-$card-background: #f0f0f0;
-$font-color-light: #fff;
-$font-color-dark: #5e5e5e;
+// Variáveis de cor
+$colors: (
+        main-background: #f0f0f0,
+        card-background: #f0f0f0,
+        font-color-light: #fff,
+        font-color-dark: #5e5e5e,
+        toolbar-color: #1976d2,
+        subtitle-bg-color: white,
+        subtitle-border-color: #f0f0f0,
+        card-title-bg-color: #f8f8f8,
+        info-weather-color: #8e8e8e,
+        info-weather-div-color: #c0c0c0,
+        temp-main-color: #7e7e7e,
+        temp-main-text-shadow: "1px 1px 2px #717171, 0 0 1em #bababa, 0 0 0.2em #f1f1f1"
+);
 
 @mixin background-image($image, $position) {
-  background-size: cover;
-  background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)) url("@/assets/images/#{$image}") no-repeat $position;
+  background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)), url("@/assets/images/#{$image}") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position-y: #{$position} !important;
 }
 
 @mixin chip-styles($bg-color, $font-color) {
@@ -13,17 +26,48 @@ $font-color-dark: #5e5e5e;
   color: $font-color;
 }
 
-main.v-main .container{
-  margin-top: -1.5em !important
+$chip-styles: (
+        'ceu-limpo': (#2196f3d4, map-get($colors, font-color-light)),
+        'nublado': (#2b4f74, map-get($colors, font-color-light)),
+        'nevoa': (#e1e1e1, map-get($colors, font-color-dark)),
+        'nuvens-dispersas': (#2196f3d4, map-get($colors, font-color-light)),
+        'algumas-nuvens': (#2196f3d4, map-get($colors, font-color-light))
+);
+
+$background-images: (
+        'ceu-limpo': ("ceu-limpo.png", 65%),
+        'algumas-nuvens': ("nuvens.jpg", bottom),
+        'chuva-moderada': ("chuvas.png", 20%),
+        'chuva-forte': ("chuvas.png", 30%),
+        'chuva-leve': ("chuva-leve.png", 50%),
+        'nublado': ("nublado.png", 95%),
+        'nevoa': ("nevoa.jpeg", top),
+        'nuvens-dispersas': ("nuvens-dispersas.png", 10%),
+        'neblina': ("neblina.jpeg", 55%),
+        'garoa-de-leve-intensidade': ("garoa.jpg", 20%)
+);
+
+@mixin card-subtitle {
+  background: map-get($colors, subtitle-bg-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid map-get($colors, subtitle-border-color);
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+main.v-main .container {
+  margin-top: -1.5em !important;
 }
 
 header.toolbar {
   padding: 0 1.5em !important;
-  background-color: #1976d2 !important;
-  color: #FFF !important;
+  background-color: map-get($colors, toolbar-color) !important;
+  color: map-get($colors, font-color-light) !important;
 
   button, a {
-    color: #FFF !important;
+    color: map-get($colors, font-color-light) !important;
   }
 }
 
@@ -32,113 +76,85 @@ header.toolbar {
 }
 
 .v-main {
-  background: $v-main-background;
+  background: map-get($colors, main-background);
 
   .cards-list {
-    background: $card-background;
+    background: map-get($colors, card-background);
 
     .card-list-subtitle {
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-      border-bottom: 1px solid $v-main-background;
-      align-items: center;
-      font-size: 0.75rem;
+      @include card-subtitle;
     }
 
     .chips-subtitle {
       font-size: 0.55rem;
 
-      &.ceu-limpo {
-        @include chip-styles(#2196f3d4, $font-color-light);
+      @each $class, $styles in $chip-styles {
+        &.#{$class} {
+          @include chip-styles(nth($styles, 1), nth($styles, 2));
+        }
       }
+    }
 
-      &.nublado {
-        @include chip-styles(#2b4f74, $font-color-light);
-      }
+    .info-weather {
+      display: flex;
+      position: absolute !important;
+      font-size: 0.6rem;
+      color: map-get($colors, info-weather-color);
+      text-transform: uppercase;
+      left: 50% !important;
+      transform: translate(-50%, 0) !important;
+      margin-top: 0.5em;
 
-      &.nevoa {
-        @include chip-styles(#e1e1e1, $font-color-dark);
-      }
-
-      &.nuvens-dispersas {
-        @include chip-styles(#269fb5, $font-color-dark);
-      }
-
-      &.algumas-nuvens {
-        @include chip-styles(#8ebbc4, #233747);
+      div * {
+        margin: 0 0.10rem;
+        color: map-get($colors, info-weather-div-color);
       }
     }
 
     .card-list-title {
-      background: #f8f8f8;
+      background: map-get($colors, card-title-bg-color);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       padding: 5px 20px;
 
-      &.ceu-limpo {
-        @include background-image("ceu-limpo.png", left top);
-      }
-
-      &.algumas-nuvens {
-        @include background-image("nuvens.jpg", bottom);
-      }
-
-      &.chuva-moderada {
-        @include background-image("chuvas.png", 20%);
-      }
-
-      &.chuva-leve {
-        @include background-image("chuva-leve.png", 50%);
-      }
-
-      &.nublado {
-        @include background-image("nublado.png", 45%);
-      }
-
-      &.nevoa {
-        @include background-image("nevoa.jpeg", top);
-      }
-
-      &.nuvens-dispersas {
-        @include background-image("nuvens-dispersas.png", 25%);
-      }
-
-      &.neblina {
-        @include background-image("neblina.jpeg", 55%);
-      }
-
-      &.garoa-de-leve-intensidade {
-        @include background-image("garoa.jpg", 20%);
+      @each $class, $image in $background-images {
+        &.#{$class} {
+          @include background-image(nth($image, 1), nth($image, 2));
+        }
       }
 
       .card-list-name-city {
-        font-size: 1.5rem;
+        font-size: 0.75rem;
+        font-weight: bolder;
+        padding-top: 0 !important;
+        height: 35px;
+        margin-bottom: 1em;
         font-family: 'Tahoma', sans-serif;
-      }
-
-      .info-weather {
-        display: flex;
-        font-size: 0.6rem;
-        color: #8e8e8e;
-        text-transform: uppercase;
-
-        div * {
-          margin: 0 0.10rem;
-          color: #c0c0c0;
-        }
+        background: #ffffffbd;
+        width: 100%;
+        margin-top: -7px !important;
+        text-align: center;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+        border-top: 1px solid #d0d0d0;
       }
     }
 
     .temp-main {
       font-size: 3rem;
       font-family: "Segoe UI Historic", sans-serif;
-      color: #7e7e7e;
-      padding: 1.5rem 0.5rem;
-      background: linear-gradient(145deg, #dedede, #fff, #dedede);
-      text-shadow: 1px 1px 2px #717171, 0 0 1em #bababa, 0 0 0.2em #f1f1f1;
+      color: map-get($colors, temp-main-color);
+      padding: 3.5rem 0 !important;
+      text-shadow: #{map-get($colors, temp-main-text-shadow)};
+      height: 100px !important;
+
+      @each $class, $image in $background-images {
+        &.#{$class} {
+          @include background-image(nth($image, 1), nth($image, 2));
+        }
+      }
     }
   }
 }

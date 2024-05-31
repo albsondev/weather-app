@@ -2,22 +2,20 @@
   <v-card :class="'cards-list ' + weatherClass">
     <v-card-title class="card-list-title" :class="weatherClass">
       <div class="card-list-name-city">{{ city.name }}</div>
-      <div class="info-weather">
-        <v-chip :class="'chips-subtitle ' + weatherClass">
-          {{ weatherDescription }}
-        </v-chip>
-      </div>
     </v-card-title>
     <v-divider :thickness="4"></v-divider>
     <v-card-subtitle class="card-list-subtitle">
       <WeatherInfo icon="mdi-thermometer" label="min:" :value="minTemp" />
       <v-divider vertical></v-divider>
       <WeatherInfo icon="mdi-thermometer" label="max:" :value="maxTemp" />
-      <v-divider vertical></v-divider>
-      <WeatherInfo icon="mdi-water-percent" label="Humidity" :value="humidity" />
     </v-card-subtitle>
     <v-divider></v-divider>
-    <v-card-text class="temp-main text-center">{{ mainTemp }} °C</v-card-text>
+    <div class="info-weather">
+      <v-chip :class="'chips-subtitle ' + weatherClass">
+        {{ weatherDescription }}
+      </v-chip>
+    </div>
+    <v-card-text class="temp-main text-center" :class="weatherClass">{{ mainTemp }} °C</v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn @click="$emit('remove', city.name)">Remove</v-btn>
