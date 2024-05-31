@@ -5,9 +5,9 @@
     </v-card-title>
     <v-divider :thickness="4"></v-divider>
     <v-card-subtitle class="card-list-subtitle">
-      <WeatherInfo icon="mdi-thermometer" label="min:" :value="minTemp" />
+      <WeatherInfo class="temp-min" icon="mdi-thermometer" label="min:" :value="minTemp" />
       <v-divider vertical></v-divider>
-      <WeatherInfo icon="mdi-thermometer" label="max:" :value="maxTemp" />
+      <WeatherInfo class="temp-max" icon="mdi-thermometer" label="max:" :value="maxTemp" />
     </v-card-subtitle>
     <v-divider></v-divider>
     <div class="info-weather">
@@ -64,10 +64,10 @@ export default Vue.extend({
       return this.weather?.weather[0]?.description || "Not available yet";
     },
     minTemp(): string {
-      return this.weather?.main?.temp_min?.toString() || "Not available yet";
+      return this.weather?.main?.temp_min?.toFixed(0).toString() || "Not available yet";
     },
     maxTemp(): string {
-      return this.weather?.main?.temp_max?.toString() || "Not available yet";
+      return this.weather?.main?.temp_max?.toFixed(0).toString() || "Not available yet";
     },
     humidity(): string {
       return this.weather?.main?.humidity?.toString() || "Not available yet";

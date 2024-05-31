@@ -83,6 +83,14 @@ header.toolbar {
 
     .card-list-subtitle {
       @include card-subtitle;
+
+      .temp-min i{
+          color: indigo !important;
+      }
+
+      .temp-max i{
+        color: crimson !important;
+      }
     }
 
     .chips-subtitle {
