@@ -1,139 +1,129 @@
 $v-main-background: #f0f0f0;
-$card-background: rgb(229 244 255 / 83%);
+$card-background: #f0f0f0;
 $font-color-light: #fff;
 $font-color-dark: #5e5e5e;
 
 @mixin background-image($image, $position) {
-    background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)),
-    url("@/assets/images/#{$image}") !important;
-    background-size: cover !important;
-    background-repeat: no-repeat;
-    background-position: #{$position} !important;
+  background: linear-gradient(#e8e8e800, rgba(255, 255, 255, 0.5)),
+  url("@/assets/images/#{$image}");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: $position;
+}
+
+@mixin chip-styles($bg-color, $font-color) {
+  background: $bg-color;
+  color: $font-color;
 }
 
 .v-main {
-    background: $v-main-background !important;
+  background: $v-main-background;
 
-    .cards-list {
-        background: $card-background !important;
+  .cards-list {
+    background: $card-background;
 
-        & .card-list-subtitle {
-            background: #e8f6ff !important;
-        }
-
-
-        .chips-subtitle {
-            font-size: 0.55rem;
-
-            &.ceu-limpo {
-                background: #2196f3d4 !important;
-                color: $font-color-light !important;
-            }
-
-            &.nublado {
-                background: #2b4f74 !important;
-                color: $font-color-light !important;
-            }
-
-            &.nevoa {
-                background: #e1e1e1 !important;
-                color: $font-color-dark !important;
-            }
-
-            &.nuvens-dispersas {
-                background: #269fb5 !important;
-                color: $font-color-dark !important;
-            }
-
-            &.algumas-nuvens {
-                background: #8ebbc4 !important;
-                color: #233747 !important;
-            }
-        }
-
-        .card-list-title {
-            background: #f8f8f8;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start !important;
-            padding: 5px 20px !important;
-
-            & .card-list-name-city {
-                font-size: 1.5rem;
-                font-family: "Webdings", sans-serif;
-            }
-
-            &.ceu-limpo {
-                @include background-image("ceu-limpo.png", left top);
-            }
-
-            &.algumas-nuvens {
-                @include background-image("nuvens.jpg", bottom);
-            }
-
-            &.chuva-moderada {
-                @include background-image("chuvas.png", 20%);
-            }
-
-            &.chuva-leve {
-                @include background-image("chuva-leve.png", 50%);
-            }
-
-            &.nublado {
-                @include background-image("nublado.png", 45%);
-            }
-
-            &.nevoa {
-                @include background-image("nevoa.jpeg", top);
-            }
-
-            &.nuvens-dispersas {
-                @include background-image("nuvens-dispersas.png", 25%);
-            }
-
-            &.neblina {
-                @include background-image("neblina.jpeg", 55%);
-            }
-
-            &.garoa-de-leve-intensidade {
-                @include background-image("garoa.jpg", 20%);
-            }
-
-            .card-list-name-city {
-                font-family: 'Tahoma', sans-serif;
-            }
-
-            .info-weather {
-                display: flex;
-                font-size: 0.6rem;
-                color: #8e8e8e !important;
-                text-transform: uppercase;
-
-                div * {
-                    margin: 0 0.10rem;
-                    color: #c0c0c0 !important;
-                }
-            }
-        }
-
-        .card-list-subtitle {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #f0f0f0;
-            align-items: center !important;
-            align-content: center !important;
-            align-self: center !important;
-            font-size: 0.75rem;
-        }
-
-        .temp-main {
-            font-size: 3rem;
-            font-family: "Segoe UI Historic", sans-serif;
-            color: #7e7e7e;
-            padding: 1.5rem 0.5rem;
-            background: linear-gradient(45deg, #ededed 50%, #dddddd 50%) !important;
-            text-shadow: 1px 1px 2px #717171, 0 0 1em #bababa, 0 0 0.2em #f1f1f1;
-        }
+    .card-list-subtitle {
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid $v-main-background;
+      align-items: center;
+      font-size: 0.75rem;
     }
+
+    .chips-subtitle {
+      font-size: 0.55rem;
+
+      &.ceu-limpo {
+        @include chip-styles(#2196f3d4, $font-color-light);
+      }
+
+      &.nublado {
+        @include chip-styles(#2b4f74, $font-color-light);
+      }
+
+      &.nevoa {
+        @include chip-styles(#e1e1e1, $font-color-dark);
+      }
+
+      &.nuvens-dispersas {
+        @include chip-styles(#269fb5, $font-color-dark);
+      }
+
+      &.algumas-nuvens {
+        @include chip-styles(#8ebbc4, #233747);
+      }
+    }
+
+    .card-list-title {
+      background: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 5px 20px;
+
+      &.ceu-limpo {
+        @include background-image("ceu-limpo.png", left top);
+      }
+
+      &.algumas-nuvens {
+        @include background-image("nuvens.jpg", bottom);
+      }
+
+      &.chuva-moderada {
+        @include background-image("chuvas.png", 20%);
+      }
+
+      &.chuva-leve {
+        @include background-image("chuva-leve.png", 50%);
+      }
+
+      &.nublado {
+        @include background-image("nublado.png", 45%);
+      }
+
+      &.nevoa {
+        @include background-image("nevoa.jpeg", top);
+      }
+
+      &.nuvens-dispersas {
+        @include background-image("nuvens-dispersas.png", 25%);
+      }
+
+      &.neblina {
+        @include background-image("neblina.jpeg", 55%);
+      }
+
+      &.garoa-de-leve-intensidade {
+        @include background-image("garoa.jpg", 20%);
+      }
+
+      .card-list-name-city {
+        font-size: 1.5rem;
+        font-family: 'Tahoma', sans-serif;
+      }
+
+      .info-weather {
+        display: flex;
+        font-size: 0.6rem;
+        color: #8e8e8e;
+        text-transform: uppercase;
+
+        div * {
+          margin: 0 0.10rem;
+          color: #c0c0c0;
+        }
+      }
+    }
+
+    .temp-main {
+      font-size: 3rem;
+      font-family: "Segoe UI Historic", sans-serif;
+      color: #7e7e7e;
+      padding: 1.5rem 0.5rem;
+      background: linear-gradient(145deg, #dedede, #fff, #dedede);
+      text-shadow: 1px 1px 2px #717171, 0 0 1em #bababa, 0 0 0.2em #f1f1f1;
+    }
+  }
 }
